@@ -1,0 +1,40 @@
+<!-- Header -->
+<app-header />
+<!-- Body -->
+<div class="w-full flex justify-start p-32 h-[calc(100vh-10vh)]">
+  <div class="w-[300px] p-4">
+    <h1 class="text-xl font-bold mb-5">Users</h1>
+
+    <div class="flex flex-col gap-2 justify-start w-full h-full">
+      @for (user of users ; track user.id){
+        <app-user
+          [users]="user"
+          (select)="onSelectUser($event)"
+        />
+      }
+
+      <!-- <div *ngFor="let user of users">
+        <app-user
+          [users]="user"
+          (select)="onSelectUser($event)"
+        />
+      </div> -->
+      
+      <!-- $event variable is used to get hold of emitting data -->
+ 
+    </div>
+  </div>
+  <div> 
+    @if (selectedUser){
+      <app-task [name]="selectedUser.name" [avatar]="selectedUser.avatar" [userId]="selectedUser.id"/>
+    } @else {
+      <h1 class="text-xl">No user slected!</h1>
+    }
+
+    <!-- <app-task *ngIf="selectedUser; else fallback" [name]="selectedUser!.name" [avatar]="selectedUser!.avatar"/>
+    <ng-template #fallback>
+      <h1 id="fallback" class="text-xl">No user slected!</h1>
+    </ng-template> -->
+    
+  </div>
+</div>

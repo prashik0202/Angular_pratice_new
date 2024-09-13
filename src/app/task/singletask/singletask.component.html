@@ -1,0 +1,6 @@
+<app-card>
+  <h1>{{ singleTask.title }}</h1>
+  <h1>{{ singleTask.dueDate | date }}</h1>
+  <p>{{ singleTask.summary }}</p>
+  <button class="p-2 bg-red-400 rounded-md w-fit" (click)="onCompleteTask()">Complete</button>
+</app-card>

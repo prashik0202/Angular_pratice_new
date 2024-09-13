@@ -1,0 +1,23 @@
+@if (isNewTaskOpen){
+  <app-new-task (cancel)="onCancelAddTask()" (add)="onAddTask($event)"/>
+}
+
+<section>
+  <div class="flex items-center justify-between gap-4">
+    <img [src]="imageNewPath" alt="alt-img" class="h-10 w-10 rounded-full" />
+    <p>{{ name }}'s Tasks</p>
+
+    <button class="bg-sky-500 p-2 rounded-md shadow-md" (click)="onStartAddTask()">Add Tasks</button>
+  </div>
+  <div class="flex flex-col justify-between gap-3 mt-2">
+
+    @if (selectedUserTask.length !== 0){
+      @for (task of selectedUserTask; track task.id){
+        <app-singletask [singleTask]="task" (complete)="onCompleteTask($event)"/>
+      }
+    } @else {
+      <h1 class="text-center text-red-400 p-4">Opps! No task found</h1>
+    }
+
+  </div>
+</section>
