@@ -1,17 +1,12 @@
 import { Component, EventEmitter, input, Input, output, Output} from '@angular/core';
-import {  signal , computed} from '@angular/core';
 import { type User } from './user.model';
 // import { DUMMY_USERS } from '../dummy_users';
 
 // geting radom users index
 // let index = Math.floor(Math.random() * DUMMY_USERS.length);
-
-
-
 @Component({
   selector: 'app-user',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -35,9 +30,6 @@ export class UserComponent {
   // @Input({ required : true }) name!:string;
 
   @Input({ required : true }) users! : User;
-
-
-
   @Output() select = new EventEmitter<string>();
 
   // alternative of the 'Output' Decorator using output used in new version

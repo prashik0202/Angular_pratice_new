@@ -1,19 +1,18 @@
 import { Component, Input } from '@angular/core';
-import { SingletaskComponent } from './singletask/singletask.component';
-import { NewTaskComponent } from './new-task/new-task.component';
-import { newTaskData } from './singletask/singletask.model';
 import { TaskService } from './task.service';
 
 @Component({
   selector: 'app-task',
-  standalone: true,
-  imports: [SingletaskComponent, NewTaskComponent],
+  standalone: false,
+  // imports: [SingletaskComponent, NewTaskComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })
 export class TaskComponent {
 
-  @Input({ required : true }) name!:string;
+  // this are basically props to this component
+  // this contain selected user name, id and avatar
+  @Input({ required : true }) name!:string; 
   @Input({ required : true }) avatar!:string;
   @Input({ required : true }) userId!:string;
 
@@ -24,26 +23,20 @@ export class TaskComponent {
   }
 
   // creating object of service class
-  private taskService = new TaskService();
+  // private taskService = new TaskService();
+  constructor(private taskService : TaskService){}
 
   get selectedUserTask(){
     return this.taskService.getUserTask(this.userId);
   }
-
-  onCompleteTask(id : string){
-    return this.taskService.deleteUserTask(id);
-  }
   
   onStartAddTask(){
+    console.log("onStartedAddTask Executed")
     this.isNewTaskOpen = true;
   } 
 
-  onCancelAddTask(){
-    this.isNewTaskOpen = false;
-  }
-
-  onAddTask(taskData : newTaskData){
-    this.taskService.addUserTask(taskData, this.userId);
+  onCloseAddTask(){
+    console.log("onCloseAddTask Executed")
     this.isNewTaskOpen = false;
   }
 

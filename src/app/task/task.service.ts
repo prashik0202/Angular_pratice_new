@@ -1,4 +1,7 @@
+import { Injectable } from "@angular/core";
 import { newTaskData } from "./singletask/singletask.model";
+
+@Injectable({providedIn : "root"})
 
 export class TaskService {
   //dummy tasks array
@@ -28,14 +31,25 @@ export class TaskService {
     },
   ];
 
+  constructor(){
+    const tasks = localStorage.getItem('tasks');
+    if(tasks){
+      this.tasks = JSON.parse(tasks);
+    }
+  }
+
+  // get 
   getUserTask(userId: string) {
     return this.tasks.filter((task) => task.userId === userId);
   }
 
+  // delete
   deleteUserTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.saveTasks();
   }
 
+  // create
   addUserTask(taskData : newTaskData, userId : string) {
     this.tasks.unshift({
       id: new Date().getTime().toString(),
@@ -44,5 +58,10 @@ export class TaskService {
       dueDate: taskData.date,
       summary: taskData.summary,
     });
+    this.saveTasks();
+  }
+
+  private saveTasks(){
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 }

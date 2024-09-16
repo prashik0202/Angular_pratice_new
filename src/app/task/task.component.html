@@ -1,5 +1,5 @@
 @if (isNewTaskOpen){
-  <app-new-task (cancel)="onCancelAddTask()" (add)="onAddTask($event)"/>
+  <app-new-task (close)="onCloseAddTask()" [userId]="userId"/>
 }
 
 <section>
@@ -13,7 +13,7 @@
 
     @if (selectedUserTask.length !== 0){
       @for (task of selectedUserTask; track task.id){
-        <app-singletask [singleTask]="task" (complete)="onCompleteTask($event)"/>
+        <app-singletask [userId]="userId" [singleTask]="task"/>
       }
     } @else {
       <h1 class="text-center text-red-400 p-4">Opps! No task found</h1>
